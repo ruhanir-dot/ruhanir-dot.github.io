@@ -1,5 +1,6 @@
-Here you can say lots of fun things about your site.
+### Hello, I'm Ruhani!
 
-Maybe say a some things about yourself.
+I'm a junior at UC Davis with an interest in statistics and coding.
+This is a homepage for me on the internet and a blog for things I find interesting.
+Nice to have you here! :D
 
-Or maybe what you plan to blog about.
