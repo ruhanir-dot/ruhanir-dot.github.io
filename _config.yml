@@ -8,6 +8,9 @@ description: "my homepage on the internet!" # This will show up in places like t
 #twitter_username: "twitteruser"
 github_username: "ruhanir-dot"
 linkedin_username: "Ruhani Rekhi"
+
+# Site colorway: "dither" (cream/charcoal/olive) or "evergreen" (gruvbox, pine bias)
+colorway: "dither"
 #facebook_username: username
 #flickr_username: username
 #instagram_username: username

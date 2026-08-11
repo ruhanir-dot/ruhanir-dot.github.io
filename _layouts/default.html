@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="{{ page.lang | default: site.lang | default: 'en' }}">
+{%- include head.html -%}
+<body>
+
+  {%- comment -%}
+    Duotone: desaturate, then remap darks to the colorway's coal and lights to
+    its paper. SVG filters can't read CSS custom properties, so the endpoints
+    are restated per colorway. Images snap to full color on hover — see
+    .portrait in css/override.css
+  {%- endcomment -%}
+  {%- assign colorway = site.colorway | default: 'dither' -%}
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <filter id="dt-duotone" color-interpolation-filters="sRGB">
+      <feColorMatrix type="matrix"
+        values="0.35 0.5 0.15 0 0
+                0.35 0.5 0.15 0 0
+                0.35 0.5 0.15 0 0
+                0    0   0    1 0"/>
+      {%- if colorway == 'evergreen' %}
+      <!-- coal #2b322a -> paper #fbf1c7 -->
+      <feComponentTransfer>
+        <feFuncR type="table" tableValues="0.169 0.984"/>
+        <feFuncG type="table" tableValues="0.196 0.945"/>
+        <feFuncB type="table" tableValues="0.165 0.780"/>
+      </feComponentTransfer>
+      {%- else %}
+      <!-- coal #26241e -> paper #f3e7b8 -->
+      <feComponentTransfer>
+        <feFuncR type="table" tableValues="0.149 0.953"/>
+        <feFuncG type="table" tableValues="0.141 0.906"/>
+        <feFuncB type="table" tableValues="0.118 0.722"/>
+      </feComponentTransfer>
+      {%- endif %}
+    </filter>
+  </svg>
+
+  <div class="frame">
+
+    <header class="chrome">
+      <a class="wordmark" href="{{ '/' | relative_url }}">{{ site.author | default: site.title }}</a>
+      <nav class="chrome-nav">
+        <a href="{{ '/' | relative_url }}">index</a>
+        <a href="{{ '/archive.html' | relative_url }}">writing</a>
+        {%- if site.github_username %}
+        <a href="https://github.com/{{ site.github_username }}">gh</a>
+        {%- endif %}
+        <a href="https://linkedin.com/in/ruhani-rekhi">li</a>
+      </nav>
+    </header>
+
+    <main class="sheet">
+      {{ content }}
+    </main>
+
+    <footer class="chrome-foot">
+      <span>&copy; {{ 'now' | date: "%Y" }} {{ site.author }}</span>
+      <span><a href="{{ '/feed.xml' | relative_url }}">rss</a></span>
+    </footer>
+
+  </div>
+
+</body>
+</html>

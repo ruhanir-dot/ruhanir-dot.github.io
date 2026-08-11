@@ -1,253 +1,672 @@
-/* Everforest Dark — calm, blues and sage */
+/* ============================================================================
+   ruhanir-dot.github.io
+   A cream field-ticket pinned inside a charcoal terminal.
+
+   Architecture   the page is a FRAME (warm charcoal chrome — wordmark, nav,
+                  footer) wrapped around a SHEET (butter-cream paper where the
+                  writing lives). Print, not glow.
+   Palette        cream #F3E7B8 · charcoal #26241E · olive #6E6614 — strict
+                  trio. No other hue anywhere.
+   Type           Silkscreen (pixel — wordmark, stamps) · Space Grotesk
+                  (titles + body) · Courier Prime (labels, metadata, code)
+   Signature      Bayer-dither ramps, corner registration marks, hazard
+                  strips, duotone images that snap to color under the cursor.
+                  Motion is a snap, never a fade.
+   ============================================================================ */
+
+/* ─── TOKENS ─────────────────────────────────────────────────────────────── */
 :root {
-  --forest-bg:            #1c2426;
-  --forest-surface:       #232d2f;
-  --forest-text:          #cfd8d3;
-  --forest-text-soft:     #86988f;
-  --forest-primary:       #8fbcbb;
-  --forest-primary-bright:#a9d1d0;
-  --forest-accent:        #9cb380;
-  --forest-accent-bright: #b3cc95;
-  --forest-accent-line:   #33403c;
-  --forest-tag-bg:        #263230;
+  /* the sheet (paper) */
+  --dt-paper:       #f3e7b8;
+  --dt-paper-hi:    #f8efcc;   /* raised paper — cards */
+  --dt-paper-dim:   #ebdda0;   /* pressed paper — chips, row hover */
+
+  /* the frame (charcoal chrome) */
+  --dt-coal:        #26241e;
+  --dt-coal-2:      #2d2b24;
+  --dt-coal-3:      #3a3830;   /* chrome hairlines */
+
+  /* ink on paper */
+  --dt-ink:         #29271f;
+  --dt-ink-strong:  #1d1b14;   /* bold — a shade past body ink */
+  --dt-ink-soft:    #45422f;   /* subtitles, em */
+  --dt-ink-dim:     #5e5a42;   /* muted-but-real text — >=4.5:1 on paper */
+  --dt-ink-faint:   #8a8262;   /* DECORATIVE ONLY — marks, hairlines */
+
+  /* cream on chrome */
+  --dt-cream:       #efe3b2;
+  --dt-cream-dim:   #b3a97f;
+
+  /* olive — the one accent */
+  --dt-olive:       #6e6614;   /* text-grade on paper */
+  --dt-olive-deep:  #57510f;
+  --dt-olive-mid:   #8a801f;   /* focus rings, both surfaces */
+  --dt-olive-bright:#c6ba55;   /* text-grade on chrome */
+
+  /* rules */
+  --dt-line:        #d3c68e;
+  --dt-line-dash:   rgba(41, 39, 31, 0.4);
+
+  /* syntax on the dark code ticket */
+  --dt-code-string: #d9cd8c;
+  --dt-code-title:  #ffffff;
+
+  /* hazard strip — the //// mark */
+  --dt-hazard: repeating-linear-gradient(-45deg,
+    var(--dt-coal) 0 2px, transparent 2px 6px);
+  --dt-hazard-cream: repeating-linear-gradient(-45deg,
+    var(--dt-olive-bright) 0 2px, transparent 2px 6px);
+
+  /* Bayer-dither ramps (used as masks, tinted via background-color) */
+  --dt-ramp-out: url("data:image/svg+xml;utf8,<svg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22224%22%20height=%228%22%20shape-rendering=%22crispEdges%22><rect%20x=%220%22%20y=%220%22%20width=%224%22%20height=%224%22/><rect%20x=%220%22%20y=%224%22%20width=%224%22%20height=%224%22/><rect%20x=%224%22%20y=%220%22%20width=%224%22%20height=%224%22/><rect%20x=%224%22%20y=%224%22%20width=%224%22%20height=%224%22/><rect%20x=%228%22%20y=%220%22%20width=%224%22%20height=%224%22/><rect%20x=%228%22%20y=%224%22%20width=%224%22%20height=%224%22/><rect%20x=%2212%22%20y=%220%22%20width=%224%22%20height=%224%22/><rect%20x=%2212%22%20y=%224%22%20width=%224%22%20height=%224%22/><rect%20x=%2216%22%20y=%220%22%20width=%224%22%20height=%224%22/><rect%20x=%2216%22%20y=%224%22%20width=%224%22%20height=%224%22/><rect%20x=%2220%22%20y=%220%22%20width=%224%22%20height=%224%22/><rect%20x=%2220%22%20y=%224%22%20width=%224%22%20height=%224%22/><rect%20x=%2224%22%20y=%220%22%20width=%224%22%20height=%224%22/><rect%20x=%2224%22%20y=%224%22%20width=%224%22%20height=%224%22/><rect%20x=%2228%22%20y=%220%22%20width=%224%22%20height=%224%22/><rect%20x=%2228%22%20y=%224%22%20width=%224%22%20height=%224%22/><rect%20x=%2232%22%20y=%220%22%20width=%224%22%20height=%224%22/><rect%20x=%2232%22%20y=%224%22%20width=%224%22%20height=%224%22/><rect%20x=%2236%22%20y=%220%22%20width=%224%22%20height=%224%22/><rect%20x=%2236%22%20y=%224%22%20width=%224%22%20height=%224%22/><rect%20x=%2240%22%20y=%220%22%20width=%224%22%20height=%224%22/><rect%20x=%2244%22%20y=%220%22%20width=%224%22%20height=%224%22/><rect%20x=%2244%22%20y=%224%22%20width=%224%22%20height=%224%22/><rect%20x=%2248%22%20y=%220%22%20width=%224%22%20height=%224%22/><rect%20x=%2248%22%20y=%224%22%20width=%224%22%20height=%224%22/><rect%20x=%2252%22%20y=%220%22%20width=%224%22%20height=%224%22/><rect%20x=%2252%22%20y=%224%22%20width=%224%22%20height=%224%22/><rect%20x=%2256%22%20y=%220%22%20width=%224%22%20height=%224%22/><rect%20x=%2260%22%20y=%220%22%20width=%224%22%20height=%224%22/><rect%20x=%2260%22%20y=%224%22%20width=%224%22%20height=%224%22/><rect%20x=%2264%22%20y=%220%22%20width=%224%22%20height=%224%22/><rect%20x=%2268%22%20y=%220%22%20width=%224%22%20height=%224%22/><rect%20x=%2268%22%20y=%224%22%20width=%224%22%20height=%224%22/><rect%20x=%2272%22%20y=%220%22%20width=%224%22%20height=%224%22/><rect%20x=%2276%22%20y=%220%22%20width=%224%22%20height=%224%22/><rect%20x=%2276%22%20y=%224%22%20width=%224%22%20height=%224%22/><rect%20x=%2280%22%20y=%220%22%20width=%224%22%20height=%224%22/><rect%20x=%2284%22%20y=%220%22%20width=%224%22%20height=%224%22/><rect%20x=%2284%22%20y=%224%22%20width=%224%22%20height=%224%22/><rect%20x=%2288%22%20y=%220%22%20width=%224%22%20height=%224%22/><rect%20x=%2292%22%20y=%224%22%20width=%224%22%20height=%224%22/><rect%20x=%2296%22%20y=%220%22%20width=%224%22%20height=%224%22/><rect%20x=%22100%22%20y=%220%22%20width=%224%22%20height=%224%22/><rect%20x=%22100%22%20y=%224%22%20width=%224%22%20height=%224%22/><rect%20x=%22104%22%20y=%220%22%20width=%224%22%20height=%224%22/><rect%20x=%22108%22%20y=%224%22%20width=%224%22%20height=%224%22/><rect%20x=%22112%22%20y=%220%22%20width=%224%22%20height=%224%22/><rect%20x=%22116%22%20y=%224%22%20width=%224%22%20height=%224%22/><rect%20x=%22120%22%20y=%220%22%20width=%224%22%20height=%224%22/><rect%20x=%22124%22%20y=%224%22%20width=%224%22%20height=%224%22/><rect%20x=%22128%22%20y=%220%22%20width=%224%22%20height=%224%22/><rect%20x=%22132%22%20y=%224%22%20width=%224%22%20height=%224%22/><rect%20x=%22136%22%20y=%220%22%20width=%224%22%20height=%224%22/><rect%20x=%22144%22%20y=%220%22%20width=%224%22%20height=%224%22/><rect%20x=%22148%22%20y=%224%22%20width=%224%22%20height=%224%22/><rect%20x=%22152%22%20y=%220%22%20width=%224%22%20height=%224%22/><rect%20x=%22160%22%20y=%220%22%20width=%224%22%20height=%224%22/><rect%20x=%22164%22%20y=%224%22%20width=%224%22%20height=%224%22/><rect%20x=%22168%22%20y=%220%22%20width=%224%22%20height=%224%22/><rect%20x=%22176%22%20y=%220%22%20width=%224%22%20height=%224%22/><rect%20x=%22184%22%20y=%220%22%20width=%224%22%20height=%224%22/><rect%20x=%22192%22%20y=%220%22%20width=%224%22%20height=%224%22/><rect%20x=%22208%22%20y=%220%22%20width=%224%22%20height=%224%22/></svg>");
+  --dt-ramp-in: url("data:image/svg+xml;utf8,<svg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22160%22%20height=%228%22%20shape-rendering=%22crispEdges%22><rect%20x=%220%22%20y=%220%22%20width=%224%22%20height=%224%22/><rect%20x=%2216%22%20y=%220%22%20width=%224%22%20height=%224%22/><rect%20x=%2224%22%20y=%220%22%20width=%224%22%20height=%224%22/><rect%20x=%2232%22%20y=%220%22%20width=%224%22%20height=%224%22/><rect%20x=%2240%22%20y=%220%22%20width=%224%22%20height=%224%22/><rect%20x=%2248%22%20y=%220%22%20width=%224%22%20height=%224%22/><rect%20x=%2252%22%20y=%224%22%20width=%224%22%20height=%224%22/><rect%20x=%2256%22%20y=%220%22%20width=%224%22%20height=%224%22/><rect%20x=%2260%22%20y=%224%22%20width=%224%22%20height=%224%22/><rect%20x=%2264%22%20y=%220%22%20width=%224%22%20height=%224%22/><rect%20x=%2268%22%20y=%224%22%20width=%224%22%20height=%224%22/><rect%20x=%2272%22%20y=%220%22%20width=%224%22%20height=%224%22/><rect%20x=%2276%22%20y=%224%22%20width=%224%22%20height=%224%22/><rect%20x=%2280%22%20y=%220%22%20width=%224%22%20height=%224%22/><rect%20x=%2284%22%20y=%220%22%20width=%224%22%20height=%224%22/><rect%20x=%2284%22%20y=%224%22%20width=%224%22%20height=%224%22/><rect%20x=%2288%22%20y=%220%22%20width=%224%22%20height=%224%22/><rect%20x=%2292%22%20y=%224%22%20width=%224%22%20height=%224%22/><rect%20x=%2296%22%20y=%220%22%20width=%224%22%20height=%224%22/><rect%20x=%22100%22%20y=%220%22%20width=%224%22%20height=%224%22/><rect%20x=%22100%22%20y=%224%22%20width=%224%22%20height=%224%22/><rect%20x=%22104%22%20y=%220%22%20width=%224%22%20height=%224%22/><rect%20x=%22108%22%20y=%220%22%20width=%224%22%20height=%224%22/><rect%20x=%22108%22%20y=%224%22%20width=%224%22%20height=%224%22/><rect%20x=%22112%22%20y=%220%22%20width=%224%22%20height=%224%22/><rect%20x=%22116%22%20y=%220%22%20width=%224%22%20height=%224%22/><rect%20x=%22116%22%20y=%224%22%20width=%224%22%20height=%224%22/><rect%20x=%22120%22%20y=%220%22%20width=%224%22%20height=%224%22/><rect%20x=%22124%22%20y=%220%22%20width=%224%22%20height=%224%22/><rect%20x=%22124%22%20y=%224%22%20width=%224%22%20height=%224%22/><rect%20x=%22128%22%20y=%220%22%20width=%224%22%20height=%224%22/><rect%20x=%22128%22%20y=%224%22%20width=%224%22%20height=%224%22/><rect%20x=%22132%22%20y=%220%22%20width=%224%22%20height=%224%22/><rect%20x=%22132%22%20y=%224%22%20width=%224%22%20height=%224%22/><rect%20x=%22136%22%20y=%220%22%20width=%224%22%20height=%224%22/><rect%20x=%22140%22%20y=%220%22%20width=%224%22%20height=%224%22/><rect%20x=%22140%22%20y=%224%22%20width=%224%22%20height=%224%22/><rect%20x=%22144%22%20y=%220%22%20width=%224%22%20height=%224%22/><rect%20x=%22144%22%20y=%224%22%20width=%224%22%20height=%224%22/><rect%20x=%22148%22%20y=%220%22%20width=%224%22%20height=%224%22/><rect%20x=%22148%22%20y=%224%22%20width=%224%22%20height=%224%22/><rect%20x=%22152%22%20y=%220%22%20width=%224%22%20height=%224%22/><rect%20x=%22152%22%20y=%224%22%20width=%224%22%20height=%224%22/><rect%20x=%22156%22%20y=%220%22%20width=%224%22%20height=%224%22/><rect%20x=%22156%22%20y=%224%22%20width=%224%22%20height=%224%22/></svg>");
+
+  /* fonts */
+  --dt-pixel: "Silkscreen", "Courier Prime", monospace;
+  --dt-sans:  "Space Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --dt-mono:  "Courier Prime", "Courier New", ui-monospace, Menlo, monospace;
 }
 
-* {
-  box-sizing: border-box;
-}
+/* ─── RESET ──────────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
 
 body {
-  background-color: var(--forest-bg);
-  color: var(--forest-text);
-  font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
-  line-height: 1.7;
+  margin: 0;
+  min-height: 100%;
+  background: var(--dt-coal);
+  color: var(--dt-ink);
+  font-family: var(--dt-sans);
+  font-size: 17px;
+  line-height: 1.68;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Site header */
-.site-header {
-  background-color: var(--forest-bg);
-  border-top: none;
-  border-bottom: 1px solid var(--forest-accent-line);
+/* faint pixel field on the chrome — the terminal is alive, barely */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background: repeating-conic-gradient(
+    rgba(239, 227, 178, 0.04) 0% 25%, transparent 0% 50%);
+  background-size: 6px 6px;
 }
 
-.site-title,
-.site-title:visited {
-  color: var(--forest-primary) !important;
-  font-weight: 600;
+img { max-width: 100%; height: auto; }
+
+/* ─── FRAME ──────────────────────────────────────────────────────────────── */
+.frame {
+  position: relative;
+  z-index: 1;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 2.4rem 1.5rem 3rem;
+}
+
+/* ─── WORDMARK — pixel logo over a hazard strip ──────────────────────────── */
+.chrome {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.6rem;
+}
+
+.wordmark {
+  font-family: var(--dt-pixel);
+  font-weight: 400;
+  font-size: 1.02rem;
+  line-height: 1.3;
   letter-spacing: 0.02em;
-}
-
-.site-title:hover {
-  color: var(--forest-primary-bright) !important;
+  color: var(--dt-cream);
   text-decoration: none;
 }
 
-.site-nav .page-link {
-  color: var(--forest-text-soft);
-  font-weight: 500;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
-  font-size: 0.8em;
-}
+.wordmark:hover { color: var(--dt-olive-bright); }
 
-.site-nav .page-link:hover {
-  color: var(--forest-accent-bright);
-  text-decoration: none;
-}
-
-/* Main content area */
-.page-content {
-  background-color: var(--forest-bg);
-  padding-top: 3em;
-}
-
-.wrapper {
-  background-color: var(--forest-bg);
-  max-width: 640px;
-}
-
-.home {
-  text-align: center;
-}
-
-.home > *:not(.page-heading) {
-  text-align: left;
-}
-
-/* Page heading / name */
-.page-heading {
-  color: var(--forest-primary);
-  font-size: 2.1em;
-  font-weight: 700;
-  letter-spacing: -0.01em;
-  margin-bottom: 0.5em;
-}
-
-/* Profile photo */
-.profile-photo {
+.wordmark::after {
+  content: "";
   display: block;
-  width: 132px;
-  height: 132px;
-  object-fit: cover;
-  border-radius: 50%;
-  margin: 0 auto 1.6em;
-  border: 1px solid var(--forest-accent-line);
+  width: 72px;
+  height: 6px;
+  margin-top: 9px;
+  background: var(--dt-hazard-cream);
+  opacity: 0.75;
 }
 
-.home > p:first-of-type {
-  text-align: center;
-  color: var(--forest-text-soft);
-  font-size: 1.05em;
-  max-width: 30em;
-  margin: 0 auto 1.6em;
-}
-
-/* Social / contact link line just under the intro */
-.home > p:nth-of-type(2) {
-  text-align: center;
-  margin-bottom: 3em;
-  font-size: 0.95em;
-}
-
-/* Headings */
-h1, h2, h3 {
-  color: var(--forest-primary);
-  font-weight: 600;
-}
-
-h4, h5, h6 {
-  color: var(--forest-accent);
-  font-weight: 600;
+.chrome-nav {
+  display: flex;
+  gap: 1.25rem;
+  font-family: var(--dt-mono);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  font-size: 0.8em;
-  margin-top: 2.2em;
-  margin-bottom: 0.6em;
-  padding-bottom: 0.4em;
-  border-bottom: 1px solid var(--forest-accent-line);
 }
 
-/* Links */
-a {
-  color: var(--forest-primary);
-  text-underline-offset: 2px;
+.chrome-nav a {
+  color: var(--dt-cream-dim);
+  text-decoration: none;
+  padding-bottom: 2px;
+  border-bottom: 2px solid transparent;
 }
 
-a:visited {
-  color: var(--forest-primary);
+.chrome-nav a:hover {
+  color: var(--dt-olive-bright);
+  border-bottom-color: var(--dt-olive-bright);
 }
 
-a:hover {
-  color: var(--forest-primary-bright);
+/* ─── SHEET — cream paper wearing a charcoal mat ─────────────────────────── */
+.sheet {
+  position: relative;
+  background: var(--dt-paper);
+  border: 14px solid var(--dt-coal);
+  padding: clamp(1.6rem, 5vw, 3.25rem);
+}
+
+/* ─── BASE TEXT ──────────────────────────────────────────────────────────── */
+.sheet p { margin: 0 0 1.25em; }
+.sheet strong { color: var(--dt-ink-strong); font-weight: 700; }
+.sheet em { color: var(--dt-ink-soft); }
+
+/* ─── HEADINGS — grotesk upstairs, mono labels downstairs ────────────────── */
+.sheet h1, .sheet h2 {
+  font-family: var(--dt-sans);
+  font-weight: 700;
+  font-synthesis: none;
+  letter-spacing: -0.02em;
+  line-height: 1.12;
+  color: var(--dt-ink);
+}
+
+.sheet h1 { font-size: 1.9rem; margin: 1.6rem 0 0.4em; }
+.sheet h2 { font-size: 1.35rem; margin: 2.4rem 0 0.5em; }
+
+/* section labels — mono, stamped, over a hairline */
+.sheet h3, .sheet h4, .sheet h5, .sheet h6 {
+  font-family: var(--dt-mono);
+  font-weight: 700;
+  font-size: 0.82rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--dt-olive-deep);
+  margin: 2.8rem 0 0.7rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--dt-line);
+}
+
+/* ─── LINKS — ink doors, olive exits ─────────────────────────────────────── */
+.sheet a {
+  color: var(--dt-olive-deep);
   text-decoration: underline;
+  text-decoration-style: dashed;
+  text-decoration-thickness: 1px;
+  text-decoration-color: rgba(87, 81, 15, 0.6);
+  text-underline-offset: 0.14em;
 }
 
-/* Lists */
-ul, ol {
-  padding-left: 1.2em;
+.sheet a:hover {
+  background: var(--dt-olive-deep);
+  color: var(--dt-paper);
+  text-decoration: none;
 }
 
-li {
-  margin-bottom: 0.4em;
+.sheet a:focus-visible,
+.chrome a:focus-visible {
+  outline: 2px solid var(--dt-olive-mid);
+  outline-offset: 2px;
 }
 
-li::marker {
-  color: var(--forest-accent);
+/* ─── HERO (homepage) ────────────────────────────────────────────────────── */
+.hero {
+  font-family: var(--dt-sans);
+  font-weight: 500;
+  font-synthesis: none;
+  font-size: clamp(1.55rem, 4.4vw, 2.4rem);
+  line-height: 1.22;
+  letter-spacing: -0.015em;
+  color: var(--dt-ink);
+  margin: 0.6rem 0 0.5em;
 }
 
-/* Horizontal rules */
-hr {
-  border: none;
-  border-top: 1px solid var(--forest-accent-line);
-  margin-top: 30px;
-  margin-bottom: 20px;
+/* the name — pixel type stamped in charcoal */
+.stamp {
+  font-family: var(--dt-pixel);
+  font-weight: 400;
+  font-size: 0.68em;
+  letter-spacing: 0.02em;
+  color: var(--dt-paper) !important;
+  background: var(--dt-coal);
+  padding: 0.12em 0.22em 0.08em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
 }
 
-/* Strong / bold */
-strong {
-  color: var(--forest-accent-bright);
-  font-weight: 600;
+/* links inside the hero stay calm — no stamp inversion up here */
+.hero a {
+  color: inherit;
+  text-decoration-thickness: 2px;
+  text-decoration-color: rgba(110, 102, 20, 0.55);
 }
 
-/* Code */
-code, pre {
-  background-color: var(--forest-surface);
-  color: var(--forest-accent-bright);
-  border: 1px solid var(--forest-accent-line);
-  border-radius: 4px;
+.hero a:hover {
+  background: none;
+  color: var(--dt-olive-deep);
 }
 
-/* Blockquote */
-blockquote {
-  border-left: 3px solid var(--forest-accent);
-  color: var(--forest-text-soft);
-  background-color: var(--forest-surface);
-  padding: 0.5em 1em;
+.lede {
+  font-size: 1.02rem;
+  color: var(--dt-ink-soft);
+  margin-bottom: 1.6rem !important;
 }
 
-/* Site footer */
-.site-footer {
-  background-color: var(--forest-bg);
-  border-top: 1px solid var(--forest-accent-line);
-  color: var(--forest-text-soft);
+/* ─── PORTRAIT — duotone that snaps to color under the cursor ────────────── */
+.portrait {
+  display: block;
+  width: 128px;
+  height: 128px;
+  object-fit: cover;
+  margin: 0 0 1.8rem;
+  border: 6px solid var(--dt-coal);
+  filter: url(#dt-duotone);
 }
 
-.site-footer a {
-  color: var(--forest-text-soft);
+.portrait:hover { filter: none; }
+
+/* ─── CONTACT ROW ────────────────────────────────────────────────────────── */
+.contact {
+  font-family: var(--dt-mono);
+  font-size: 0.9rem;
+  letter-spacing: 0.02em;
+  margin-bottom: 2.4rem !important;
 }
 
-.site-footer a:hover {
-  color: var(--forest-primary-bright);
+.contact a { font-weight: 700; }
+
+.contact .sep { color: var(--dt-ink-faint); padding: 0 0.35em; }
+
+/* ─── LEDGER — dashed rows for entries and the writing index ─────────────── */
+.ledger { list-style: none; padding: 0; margin: 0 0 1.5rem; }
+
+.ledger li {
+  font-family: var(--dt-mono);
+  font-size: 0.9rem;
+  color: var(--dt-ink-dim);
+  line-height: 1.5;
+  padding: 0.7em 0.3em;
+  margin: 0;
+  border-bottom: 1px dashed var(--dt-line-dash);
 }
 
-/* Post list */
-.post-list h3 a,
-.post-list-heading {
-  color: var(--forest-primary);
+.ledger li:first-child { border-top: 1px dashed var(--dt-line-dash); }
+
+.ledger li:hover { background: var(--dt-paper-dim); }
+
+.ledger .idx-date {
+  color: var(--dt-olive-deep);
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+}
+
+.ledger .idx-arrow {
+  font-family: var(--dt-pixel);
+  font-size: 0.78em;
+  color: var(--dt-olive);
+  padding: 0 0.5em;
+}
+
+/* the writing index — grotesk title inline after its mono date */
+.ledger .idx-title {
+  font-family: var(--dt-sans);
+  font-size: 1.02rem;
+  font-weight: 500;
+  color: var(--dt-ink);
+  text-decoration: none;
+  letter-spacing: 0;
+}
+
+.ledger .idx-title:hover { background: var(--dt-coal); color: var(--dt-paper); }
+
+/* the headline of a ledger row — grotesk, sits above its mono detail */
+.ledger .row-title {
+  display: block;
+  font-family: var(--dt-sans);
+  font-size: 1.02rem;
+  font-weight: 500;
+  color: var(--dt-ink);
+  text-decoration: none;
+  letter-spacing: 0;
+}
+
+a.row-title:hover { background: var(--dt-coal); color: var(--dt-paper); }
+
+.ledger .row-note {
+  display: block;
+  margin-top: 0.15em;
+  color: var(--dt-ink-dim);
+}
+
+/* the role line on an experience row */
+.ledger .row-org {
+  color: var(--dt-olive-deep);
+  font-weight: 700;
+}
+
+/* ─── SPEC LIST — key/value rows for skills ──────────────────────────────── */
+.spec { margin: 0 0 1.5rem; }
+
+.spec div {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding: 0.55em 0.3em;
+  border-bottom: 1px dashed var(--dt-line-dash);
+  font-family: var(--dt-mono);
+  font-size: 0.88rem;
+}
+
+.spec div:first-child { border-top: 1px dashed var(--dt-line-dash); }
+
+.spec dt {
+  flex: 0 0 6.5rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-size: 0.76rem;
+  color: var(--dt-olive-deep);
+  padding-top: 0.15em;
+}
+
+.spec dd { margin: 0; flex: 1 1 14rem; color: var(--dt-ink); }
+
+/* ─── PROSE LISTS ────────────────────────────────────────────────────────── */
+.sheet ul:not(.ledger):not(.post-list),
+.sheet ol { padding-left: 1.2em; }
+
+.sheet li { margin-bottom: 0.35em; }
+
+.sheet ul:not(.ledger) li::marker { color: var(--dt-olive); }
+
+/* ─── HR — the //// hazard strip, left-aligned like a board mark ─────────── */
+.sheet hr {
+  border: 0;
+  height: 7px;
+  width: 96px;
+  margin: 3.2em 0;
+  background: var(--dt-hazard);
+  opacity: 0.85;
+}
+
+/* ─── POST ───────────────────────────────────────────────────────────────── */
+.post-title {
+  font-family: var(--dt-sans);
+  font-weight: 700;
+  font-synthesis: none;
+  font-size: clamp(1.7rem, 4.6vw, 2.4rem);
+  letter-spacing: -0.02em;
+  line-height: 1.08;
+  color: var(--dt-ink);
+  margin: 0.4rem 0 0.4em;
+}
+
+/* grotesk over a dither ramp */
+.post-title::after {
+  content: "";
+  display: block;
+  width: 224px;
+  max-width: 60%;
+  height: 8px;
+  margin-top: 1.25rem;
+  background-color: var(--dt-coal);
+  -webkit-mask-image: var(--dt-ramp-out);
+  mask-image: var(--dt-ramp-out);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
 }
 
 .post-meta {
-  color: var(--forest-text-soft);
+  font-family: var(--dt-mono);
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--dt-ink-dim);
+  margin: 1.1rem 0 2.4rem !important;
 }
 
-/* Post navigation links */
-.post_navi {
-  display: flex;
+/* every article ends by gathering back to solid */
+.post-content::after {
+  content: "";
+  display: block;
+  width: 160px;
+  height: 8px;
+  margin: 3.5rem 0 1rem;
+  pointer-events: none;
+  background-color: var(--dt-coal);
+  -webkit-mask-image: var(--dt-ramp-in);
+  mask-image: var(--dt-ramp-in);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
 }
 
-.post_navi-label {
-  font-size: 0.8em;
-  opacity: 0.6;
-}
-
-.post_navi .post_navi-item {
-  padding: 0 2.2em;
-  width: 50%;
+/* ─── BLOCKQUOTE — a registration-marked exhibit ─────────────────────────── */
+.sheet blockquote {
   position: relative;
-  color: inherit !important;
+  border: 1px dashed var(--dt-line-dash);
+  background: none;
+  margin: 2.6em 0;
+  padding: 1.3em 1.6em;
 }
 
-.post_navi .nav_prev { text-align: left; }
-.post_navi .nav_next { text-align: right; }
-.post_navi .nav_prev .post_navi-arrow { left: 0; }
-.post_navi .nav_next .post_navi-arrow { right: 0; }
-
-.post_navi .post_navi-arrow {
+/* corner registration marks */
+.sheet blockquote::before {
+  content: "";
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 2.5em;
-  opacity: 0.3;
-  color: var(--forest-accent);
+  inset: -3px;
+  pointer-events: none;
+  background-image:
+    linear-gradient(var(--dt-coal), var(--dt-coal)),
+    linear-gradient(var(--dt-coal), var(--dt-coal)),
+    linear-gradient(var(--dt-coal), var(--dt-coal)),
+    linear-gradient(var(--dt-coal), var(--dt-coal));
+  background-repeat: no-repeat;
+  background-size: 5px 5px;
+  background-position: 0 0, 100% 0, 0 100%, 100% 100%;
 }
 
-/* Social icons */
-.social-media-list a,
-.social-media-list a:visited {
-  color: var(--forest-text-soft);
+.sheet blockquote p {
+  font-family: var(--dt-sans);
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1.15rem;
+  line-height: 1.55;
+  color: var(--dt-ink);
+  margin: 0;
 }
 
-.social-media-list a:hover {
-  color: var(--forest-primary-bright);
+/* ─── CODE — the dark ticket on the cream sheet ──────────────────────────── */
+.sheet :not(pre) > code {
+  font-family: var(--dt-mono);
+  font-size: 0.86em;
+  font-variant-ligatures: none;
+  color: var(--dt-ink);
+  background: var(--dt-paper-dim);
+  border: 1px solid rgba(41, 39, 31, 0.35);
+  border-radius: 0;
+  padding: 0.05em 0.35em;
+}
+
+.sheet pre {
+  background: var(--dt-coal);
+  border: 1px solid var(--dt-coal);
+  border-radius: 0;
+  color: var(--dt-cream);
+  padding: 1.1em 1.3em;
+  overflow-x: auto;
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+
+.sheet pre code {
+  font-family: var(--dt-mono);
+  background: none;
+  border: 0;
+  padding: 0;
+  color: inherit;
+}
+
+/* highlight.js runs on this site — keep it inside the trio */
+.hljs { background: transparent !important; color: var(--dt-cream) !important; }
+.hljs-keyword, .hljs-selector-tag, .hljs-built_in,
+.hljs-name, .hljs-tag { color: var(--dt-olive-bright) !important; }
+.hljs-string, .hljs-attr, .hljs-number,
+.hljs-literal, .hljs-symbol { color: var(--dt-code-string) !important; }
+.hljs-comment, .hljs-quote, .hljs-meta { color: var(--dt-cream-dim) !important; font-style: italic; }
+.hljs-title, .hljs-section, .hljs-type { color: var(--dt-code-title) !important; }
+
+/* ─── TABLES ─────────────────────────────────────────────────────────────── */
+.sheet table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+  margin: 2em 0;
+}
+
+.sheet th, .sheet td {
+  text-align: left;
+  padding: 0.6em 0.8em;
+  border-bottom: 1px dashed var(--dt-line-dash);
+}
+
+.sheet th {
+  font-family: var(--dt-mono);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--dt-olive-deep);
+  border-bottom: 1px solid var(--dt-coal);
+}
+
+/* ─── POST NAVIGATION ────────────────────────────────────────────────────── */
+.post-navi {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px dashed var(--dt-line-dash);
+}
+
+.post-navi-item {
+  width: 50%;
+  text-decoration: none !important;
+  color: inherit !important;
+  background: none !important;
+}
+
+.post-navi .nav-next { text-align: right; }
+
+.post-navi-label {
+  display: block;
+  font-family: var(--dt-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--dt-olive-deep);
+  margin-bottom: 0.3em;
+}
+
+.post-navi-title {
+  font-family: var(--dt-sans);
+  font-size: 0.98rem;
+  font-weight: 500;
+  color: var(--dt-ink);
+}
+
+.post-navi-item:hover .post-navi-title {
+  background: var(--dt-coal);
+  color: var(--dt-paper);
+}
+
+/* ─── FOOTER — mono, on the chrome ───────────────────────────────────────── */
+.chrome-foot {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 1.6rem;
+  font-family: var(--dt-mono);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--dt-cream-dim);
+}
+
+.chrome-foot a { color: var(--dt-cream-dim); text-decoration: none; }
+.chrome-foot a:hover { color: var(--dt-olive-bright); }
+
+/* ─── SHARE LINKS ────────────────────────────────────────────────────────── */
+.share-links {
+  font-family: var(--dt-mono);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--dt-ink-dim);
+  margin-bottom: 2.2rem;
+}
+
+.share-links a {
+  text-decoration: none;
+  margin-right: 0.9em;
+  color: var(--dt-olive-deep);
+  border-bottom: 2px solid rgba(87, 81, 15, 0.35);
+}
+
+.share-links a:hover {
+  background: var(--dt-olive-deep);
+  color: var(--dt-paper);
+  border-bottom-color: var(--dt-olive-deep);
+}
+
+/* ─── MOTION — there is none. States snap like pixels. ───────────────────── */
+
+/* ─── RESPONSIVE ─────────────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  body { font-size: 16px; }
+
+  .frame { padding: 1.5rem 0.85rem 2rem; }
+
+  .sheet { border-width: 10px; }
+
+  .chrome { align-items: flex-start; }
+
+  .spec dt { flex-basis: 100%; }
+
+  .post-navi { flex-direction: column; gap: 1.25rem; }
+
+  .post-navi-item { width: 100%; }
+
+  .post-navi .nav-next { text-align: left; }
+}
+
+/* ─── PRINT — ink on real paper; the chrome theater stays home ───────────── */
+@media print {
+  body { background: #fff; }
+  body::before, .chrome, .chrome-foot, .share-links, .post-navi { display: none; }
+  .frame { max-width: none; padding: 0; }
+  .sheet { border: 0; padding: 0; background: #fff; }
+  .post-title::after, .post-content::after { display: none; }
+  .portrait { filter: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
 }

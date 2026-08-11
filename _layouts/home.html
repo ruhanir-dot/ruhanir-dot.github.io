@@ -1,16 +1,15 @@
 ---
-layout: page
-title: Writing
+layout: default
 ---
+{{ content }}
 
-<p class="lede">Everything I've posted, newest first.</p>
-
+{%- if site.posts.size > 0 %}
+<h3>Writing</h3>
 <ul class="ledger">
   {%- for post in site.posts %}
   <li>
     <span class="idx-date">{{ post.date | date: "%m-%Y" }}</span><span class="idx-arrow">&gt;&gt;</span><a class="idx-title" href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
   </li>
-  {%- else %}
-  <li>Nothing here yet.</li>
   {%- endfor %}
 </ul>
+{%- endif %}

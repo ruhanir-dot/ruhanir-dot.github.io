@@ -1,16 +1,27 @@
-
 <!-- Site build date: {{ "now" | date: "%FT%T%z" }} -->
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#26241e">
 
   <!-- Begin SEO -->
   {% seo %}
   <!-- End SEO -->
 
-  <link rel="stylesheet" href="{{ "/assets/main.css" | relative_url }}">
-  <link rel="stylesheet" type="text/css" href="/css/override.css">
+  <!-- Silkscreen (pixel) · Space Grotesk (titles + body) · Courier Prime (labels) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Silkscreen:wght@400;700&family=Space+Grotesk:wght@400;500;700&display=swap">
+
+  <link rel="stylesheet" type="text/css" href="{{ '/css/override.css' | relative_url }}">
+
+  {%- comment -%} Palette swap. `colorway:` in _config.yml — 'dither' (default) or 'evergreen'. {%- endcomment -%}
+  {%- assign colorway = site.colorway | default: 'dither' -%}
+  {%- if colorway != 'dither' -%}
+  {%- capture colorway_path -%}/css/colorway-{{ colorway }}.css{%- endcapture %}
+  <link rel="stylesheet" type="text/css" href="{{ colorway_path | relative_url }}">
+  {%- endif %}
 
   {% feed_meta %}
 
@@ -20,16 +31,11 @@
   <!-- End Google Analytics -->
   {%- endif %}
 
-  <!-- Begin highlight.js support -->
-  <link rel="stylesheet" href="/js/highlightjs/styles/github.css">
-  <link rel="stylesheet" href="/js/highlightjs/styles/ssms.css" />
-
-  <script type="text/javascript" src="/js/highlightjs/highlight.min.js"></script>
-
-  <script type="text/javascript" src="/js/highlightjs/languages/plaintext.min.js"></script>
-  <script type="text/javascript" src="/js/highlightjs/languages/powershell.min.js"></script>
-  <script type="text/javascript" src="/js/highlightjs/languages/tsql.min.js"></script>
-
-  <script type="text/javascript"> hljs.highlightAll(); </script>
-  <!-- end highlight.js support -->
+  <!-- Begin highlight.js support (theming lives in css/override.css) -->
+  <script type="text/javascript" src="{{ '/js/highlightjs/highlight.min.js' | relative_url }}"></script>
+  <script type="text/javascript" src="{{ '/js/highlightjs/languages/plaintext.min.js' | relative_url }}"></script>
+  <script type="text/javascript" src="{{ '/js/highlightjs/languages/powershell.min.js' | relative_url }}"></script>
+  <script type="text/javascript" src="{{ '/js/highlightjs/languages/tsql.min.js' | relative_url }}"></script>
+  <script type="text/javascript">hljs.highlightAll();</script>
+  <!-- End highlight.js support -->
 </head>

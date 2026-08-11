@@ -1,0 +1,58 @@
+/* ============================================================================
+   COLORWAY — EVERGREEN
+   Gruvbox warmth, pine bias. Loads AFTER css/override.css and redefines only
+   the palette tokens; every rule in override.css reads through them, so the
+   architecture (frame + sheet, ramps, hazard strips, ledgers) is untouched.
+
+   Enable with `colorway: evergreen` in _config.yml.
+
+   Where it comes from   gruvbox light0 #fbf1c7 is the sheet and gruvbox
+                         light1 #ebdbb2 is the cream on the chrome — both
+                         straight from the palette. The charcoal is gruvbox
+                         dark0 pushed green so the frame reads pine rather
+                         than brown, and the accent is a forest green with
+                         everforest's #a7c080 as its bright counterpart.
+   ============================================================================ */
+
+:root {
+  /* the sheet (paper) — gruvbox light backgrounds */
+  --dt-paper:       #fbf1c7;   /* gruvbox light0 */
+  --dt-paper-hi:    #fdf6dc;
+  --dt-paper-dim:   #f2e5bc;   /* gruvbox light0_soft */
+
+  /* the frame (charcoal chrome) — gruvbox dark, biased evergreen */
+  --dt-coal:        #2b322a;
+  --dt-coal-2:      #333b31;
+  --dt-coal-3:      #414a3e;
+
+  /* ink on paper */
+  --dt-ink:         #2b2f27;
+  --dt-ink-strong:  #1c1f19;
+  --dt-ink-soft:    #4a4f42;
+  --dt-ink-dim:     #5f6650;   /* 5.3:1 on paper */
+  --dt-ink-faint:   #8a8f76;   /* DECORATIVE ONLY */
+
+  /* cream on chrome */
+  --dt-cream:       #ebdbb2;   /* gruvbox light1 — 9.5:1 on the frame */
+  --dt-cream-dim:   #a89984;   /* gruvbox gray — 4.7:1 on the frame */
+
+  /* pine — the one accent */
+  --dt-olive:       #4a6b38;   /* text-grade on paper, 5.3:1 */
+  --dt-olive-deep:  #3b5a2c;
+  --dt-olive-mid:   #6b8c4f;   /* focus rings, both surfaces */
+  --dt-olive-bright:#a7c080;   /* everforest green — 6.5:1 on the frame */
+
+  /* rules */
+  --dt-line:        #ddcf9e;
+  --dt-line-dash:   rgba(43, 47, 39, 0.4);
+
+  /* syntax on the dark code ticket */
+  --dt-code-string: #d5c4a1;   /* gruvbox light3 */
+  --dt-code-title:  #f9f5d7;   /* gruvbox light0_hard */
+}
+
+/* the hero link underline and external-link dashes are mixed by hand in
+   override.css against the olive; restate them on the pine */
+.hero a { text-decoration-color: rgba(74, 107, 56, 0.55); }
+.sheet a { text-decoration-color: rgba(59, 90, 44, 0.6); }
+.share-links a { border-bottom-color: rgba(59, 90, 44, 0.35); }
