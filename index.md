@@ -7,7 +7,7 @@ title: ruhani rekhi
 
 <img class="portrait" src="{{ '/assets/img/ruhani.jpeg' | relative_url }}" alt="Ruhani Rekhi">
 
-<p class="lede">quantitative research intern at <strong>square kettle</strong>. mostly interested in machine learning, data science, and the recommender systems that decide what people see next. building things that turn large, messy datasets into decisions worth trusting.</p>
+<p class="lede"> interested in machine learning, data science, and the recommender systems that decide what people see next. building things that turn large, messy datasets into decisions worth trusting! :D</p>
 
 <p class="contact">find me here:
 <a href="https://github.com/ruhanir-dot">gh</a><span class="sep">|</span><a href="https://linkedin.com/in/ruhani-rekhi">linkedin</a><span class="sep">|</span><a href="mailto:ruhanirekhi@gmail.com">email</a></p>
@@ -27,7 +27,7 @@ title: ruhani rekhi
   </li>
   <li>
     <span class="row-title">Data Science Intern <span class="row-org">// UC Davis Facilities Management</span></span>
-    <span class="row-note">ML fault detection across 40+ campus buildings.</span>
+    <span class="row-note">ML fault detection across 100+ campus buildings.</span>
   </li>
   <li>
     <span class="row-title">Sports Analytics Engineer <span class="row-org">// Aggie Sports Analytics</span></span>
